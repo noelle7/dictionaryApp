@@ -4,14 +4,18 @@ import './App.css';
 import Header from './components/Header';
 import Form from './components/Form'
 import Result from './components/Result';
+import { useState } from 'react';
 
 const App = () => {
+
+  const [word, setWordDefinitions] = useState(""); 
+
   return (
-    <div className="App">
+    <main className="App">
       <Header />
-      <Form />
-      <Result />
-    </div>
+      <Form setWordDefinitions={setWordDefinitions} />
+      <Result wordDefinitions={word} />
+    </main>
   );
 }
 

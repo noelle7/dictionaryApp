@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Form = () => {
+const Form = ({ setWordDefinitions}) => {
 	const [userInput, setUserInput] = useState("");
 	const [error, setError] = useState(false);
 
@@ -12,36 +12,48 @@ const Form = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// error handling here
-
-		// // API call inside handleSubmit function instead of useEffect
-		// axios({
-		// 	url: "https://api.dictionaryapi.dev/api/v2/entries/en/hello",
-		// 	// method: "GET",
-		// 	// dataResponse: "json",
-		// }).then((response) => {
-		// 	console.log(response);
-		// });
-
 		fetchWordDefinitions(userInput);
 
 		setUserInput("");
 	};
-
-	const apiBaseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
-	// const DEFINITIONS_DIV = document.getElementById("definitions");
-
+	
 	const fetchWordDefinitions = async (word) => {
+		const apiBaseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 		console.log(`Making request for definitions of ${word}...`);
-		const response = await fetch(apiBaseUrl + word);
-		const apiData = await response.json();
-		console.log(apiData);
-		console.log(apiData[0].word);
-		// return apiData[0].meanings
-		// 	.flatMap((m) => m.definitions)
-		// 	.flatMap((d) => d.definition);
+		
+		if (word === null || word === "") {
+			return alert("Error: You must enter a word to fetch");
+			// return error;
+		}
 
+	    try {
+			const response = await fetch(apiBaseUrl + word);
+			const apiData = await response.json();
+			console.log(apiData);
+			console.log(apiData[0].word);
+			setWordDefinitions(apiData[0].word)
+			displayWord(apiData);
+			setError(false)
+			// return apiData[0].meanings
+			// 	.flatMap((m) => m.definitions)
+			// 	.flatMap((d) => d.definition);
+	    } catch (error) {
+	        // do something with that error
+	        setError(true);
+	    }
 	};
+
+	const displayWord = (wordArray) => {
+
+		wordArray.forEach( (wordObject) => {
+			console.log(wordObject);
+			const word = wordObject.word;
+			const partOfSpeech = wordObject.meanings.partOfSpeech;
+
+		});
+	}
+
+	// *************************
 
 	// const getWordDefinitions = () => {
 	// 	const word = document.getElementById("word").value;
@@ -56,52 +68,9 @@ const Form = () => {
 	// 			});
 	// 		})
 	// 		.catch((_) => {
-	// 			DEFINITIONS_DIV.innerHTML += `<p>Error: Could not retrive any defintions for ${word}.</p>`;
+	// 			DEFINITIONS_DIV.innerHTML += `<p>Error: Could not retrieve the definition for ${word}.</p>`;
 	// 		});
 	// };
-
-	// const fetchWordData = async (word) => {
-	// 	const url = new URL ('https://api.dictionaryapi.dev/api/v2/entries/en/hello')
-	// 	url.search = new URLSearchParams({
-	// 		q: word,
-	// 	})
-
-	// 	try {
-	//         // fetch request
-	//         const response = await fetch(url);
-	//         const apiData = await response.json();
-	//         console.log(apiData);
-	//         setUserInput(apiData.word)
-	//         setError(false)
-	//     } catch (error) {
-	//         // do something with that error
-	//         setError(true);
-	//     }
-	// }
-
-	// const fetchWeatherData = async (city) => {
-	//     // constructing the URL
-	//     const url = new URL('https://api.openweathermap.org/data/2.5/weather');
-	//     url.search = new URLSearchParams({
-	//         appid: "cf0574abdade79720c384eef8564c083",
-	//         q: city,
-	//         // q short for query
-	//         units: 'metric',
-
-	//     });
-
-	//     try {
-	//         // fetch request
-	//         const response = await fetch(url);
-	//         const apiData = await response.json();
-	//         // console.log(apiData);
-	//         setTemp(apiData.main.temp)
-	//         setError(false)
-	//     } catch (error) {
-	//         // do something with that error
-	//         setError(true);
-	//     }
-	// }
 
 	return (
 		<>
@@ -117,7 +86,11 @@ const Form = () => {
 					onChange={handleChange}
 				/>
 				<button>Submit</button>
-				{error ? <p> Please try searching again</p> : null}
+				{	
+					error 
+					? <p className="errorMessage"> Whoops, can't be empty...</p> 
+					: null
+				}
 			</form>
 		</>
 	);
