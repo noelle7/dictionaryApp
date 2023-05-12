@@ -1,12 +1,16 @@
 // import logo from './logo.svg';
+// import Inconsolata from './assets/fonts/inconsolata'
 import './App.css';
+import Header from './components/Header';
 import Form from './components/Form'
+import Result from './components/Result';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>Hi</h1>
+      <Header />
       <Form />
+      <Result />
     </div>
   );
 }
