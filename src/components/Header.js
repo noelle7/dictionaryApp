@@ -1,8 +1,10 @@
+// font & theme
+
 const Header = () => {
 	return (
 		<header>
 			<nav>
-                <div>Here is a nav</div>
+                {/* <div>Here is a nav</div> */}
             </nav>
 		</header>
 	);
