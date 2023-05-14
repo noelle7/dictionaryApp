@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+import Result from "./Result";
 
-const Form = ({ setWordDefinitions}) => {
+const Form = () => {
+
 	const [userInput, setUserInput] = useState("");
+	const [word, setWord] = useState("");
+	const [phonetic, setPhonetic] = useState("");
+	const [filteredData, setFilteredData] = useState([]);
 	const [error, setError] = useState(false);
 
 	const handleChange = (e) => {
@@ -16,64 +20,61 @@ const Form = ({ setWordDefinitions}) => {
 
 		setUserInput("");
 	};
-	
+
 	const fetchWordDefinitions = async (word) => {
 		const apiBaseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 		console.log(`Making request for definitions of ${word}...`);
-		
+
 		if (word === null || word === "") {
 			return alert("Error: You must enter a word to fetch");
 			// return error;
 		}
 
-	    try {
+		try {
 			const response = await fetch(apiBaseUrl + word);
 			const apiData = await response.json();
 			console.log(apiData);
-			console.log(apiData[0].word);
-			setWordDefinitions(apiData[0].word)
-			displayWord(apiData);
-			setError(false)
-			// return apiData[0].meanings
-			// 	.flatMap((m) => m.definitions)
-			// 	.flatMap((d) => d.definition);
-	    } catch (error) {
-	        // do something with that error
-	        setError(true);
-	    }
+
+			setWord(apiData[0].word);
+			// setMeanings(apiData[0].meanings);
+			setPhonetic(apiData[0].phonetics[2].text);
+
+			setFilteredData(apiData[0].meanings.map((meaning) => ({
+					partOfSpeech: meaning.partOfSpeech,
+					synonyms: meaning.synonyms,
+
+					definitions: meaning.definitions.map((def) => ({
+						definition: def.definition,
+						examples: def.example,
+					})),
+				}))
+			);
+
+			// const filteredArray = word.filter( (wordObj, index) => {
+			// 	return (
+			// 		wordObj.meaning = apiData[0].meanings.map((meaning) => ({
+			// 				partOfSpeech: meaning.partOfSpeech,
+			// 				synonyms: meaning.synonyms,
+			// 				definitions: meaning.definitions.map((def) => ({
+			// 						definition: def.definition,
+			// 						examples: def.example,
+			// 					})),
+			// 				}))
+			// 	)
+			// })
+			// console.log(setFilteredData);
+
+			// setFilteredData(filteredArray)
+
+			setError(false);
+
+		} catch (error) {
+			setError(true);
+		}
 	};
 
-	const displayWord = (wordArray) => {
-
-		wordArray.forEach( (wordObject) => {
-			console.log(wordObject);
-			const word = wordObject.word;
-			const partOfSpeech = wordObject.meanings.partOfSpeech;
-
-		});
-	}
-
-	// *************************
-
-	// const getWordDefinitions = () => {
-	// 	const word = document.getElementById("word").value;
-	// 	if (word == null || word == "") {
-	// 		return alert("Error: You must enter a word to fetch");
-	// 	}
-	// 	DEFINITIONS_DIV.innerHTML = "";
-	// 	fetchWordDefinitions(word)
-	// 		.then((defintions) => {
-	// 			defintions.forEach((d) => {
-	// 				DEFINITIONS_DIV.innerHTML += `<p>${d}</p>`;
-	// 			});
-	// 		})
-	// 		.catch((_) => {
-	// 			DEFINITIONS_DIV.innerHTML += `<p>Error: Could not retrieve the definition for ${word}.</p>`;
-	// 		});
-	// };
-
 	return (
-		<>
+		<section>
 			<form action="" onSubmit={handleSubmit}>
 				<label htmlFor="word" className="sr-only">
 					Enter a word
@@ -85,14 +86,24 @@ const Form = ({ setWordDefinitions}) => {
 					value={userInput}
 					onChange={handleChange}
 				/>
-				<button>Submit</button>
-				{	
+				<button type="submit">Submit</button>
+				{
 					error 
-					? <p className="errorMessage"> Whoops, can't be empty...</p> 
-					: null
+					? (
+					<p className="errorMessage"> Whoops, can't be empty...</p>
+					) : null
 				}
 			</form>
-		</>
+
+			{	
+				filteredData.length > 0 
+				&& <Result 
+					filteredData={filteredData}
+					word={word}
+					phonetic={phonetic} 
+					/>
+			}
+		</section>
 	);
 };
 
