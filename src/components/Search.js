@@ -44,7 +44,7 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 	return (
 		<form action="" className='searchBar' onSubmit={handleSubmit}>
 			<label htmlFor="word" className="sr-only">Enter a word</label>
-			<input 
+			<input
 				// className={
 				// 	inputError
 				// 	?

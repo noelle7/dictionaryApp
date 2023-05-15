@@ -13,9 +13,12 @@ const Display = ({ searchedWord, errorMessage }) => {
 					</>
 				)
 			}
+
+			{/* error */}
 			{
 				errorMessage.isError && (
 				<div className="displayError">
+					<h2>🫤</h2>
 					<h4>
 						{errorMessage.title}
 					</h4>

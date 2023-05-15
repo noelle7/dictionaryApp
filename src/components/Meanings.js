@@ -8,7 +8,7 @@ const Meanings = ({ searchedWord }) => {
 
                 {/* PART OF SPEECH */}
                 <div className="displayPartOfSpeech">
-                    <h3>{meaning.partOfSpeech}</h3>
+                    <h3 className="partOfSpeech">{meaning.partOfSpeech}</h3>
                     <div className="displayLine"></div>
                 </div>
 
@@ -33,7 +33,7 @@ const Meanings = ({ searchedWord }) => {
                     meaning.synonyms.length > 0 && (
                         <div className="displaySynonyms">
                             <h4>Synonyms</h4>
-                            <span>{meaning.synonyms[0]}</span>
+                            <span className="synonym">{meaning.synonyms[0]}</span>
                         </div>
                     ) 
                 }
