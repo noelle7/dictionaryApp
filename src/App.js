@@ -20,11 +20,15 @@ const App = () => {
     message: '',
   })
 
+  const [font, setFont] = useState('sans-serif');
+  const [theme, setTheme] = useState('lite')
+
+  let dark = window.matchMedia('prefer-color-scheme: dark').matches
+
   useEffect(() => {
     const data = async () => {
       try {
         const response = await word('developer')
-        console.log(response[0])
         setSearchedWord(response[0])
         setErrorMessage({
           isError: false,
@@ -32,21 +36,25 @@ const App = () => {
           message: '',
         })
       } catch (error) {
-        console.log(error)
       }
     }
 
-    // if (dark) {
-    //   setTheme('dark')
-    // }
+    if (dark) {
+      setTheme('dark')
+    }
 
     data()
   }, [])
 
 
   return (
-    <div className="app">
-      <Header />
+    <div className={`app ${font} ${theme}`}>
+      <Header 
+        font={font} 
+        setFont={setFont}
+        theme={theme}
+        setTheme={setTheme} 
+      />
       <Search 
         setSearchedWord={setSearchedWord}
         inputError={inputError}

@@ -1,10 +1,8 @@
 import sourceIcon from '../assets/images/icon-new-window.svg';
-// import { v4 as uuid } from 'uuid';
 
 
 const Meanings = ({ searchedWord}) => {
     const renderedMeanings = searchedWord.meanings.map((meaning, index) => {
-        console.log(meaning);
 
         return (
             <section className="displayMeaning" key={index} >
