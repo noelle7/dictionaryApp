@@ -1,4 +1,4 @@
-// import SearchButton from '../assets/images/icon-search.svg';
+import searchIcon from '../assets/images/icon-search.svg';
 
 import { word } from './api/word.js';
 import { useState } from "react";
@@ -23,8 +23,26 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 		try {
 			const response = await word(userInput)
 			console.log(response);
+			
+			// const updatedResponse = response.map( (item) => {
+			// 	return {
+			// 		...item,
+			// 		meanings: {
+			// 			...item.meanings,
+			// 			id: crypto.randomUUID()
+			// 		}
+			// 	}
+			// } )
+			// console.log(updatedResponse);
+			
+			// setSearchedWord(updatedResponse[0])
 			setSearchedWord(response[0])
 			setInputError(false)
+			setErrorMessage({
+				isError: false,
+				title: "",
+				message: "",
+			})
 
 		} catch (error) {
 			setSearchedWord({
@@ -36,6 +54,7 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 			  isError: true,
 			  title: error.response.data.title,
 			  message: error.response.data.message,
+
 			})
 			console.log(error)
 		}
@@ -59,8 +78,7 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 				)
 			}
 			<button className='button' type='submit'>
-				{/* <SearchButton /> */}
-				submit
+				<img src={searchIcon} className="searchIcon" alt="search icon" />
 			</button>
 		</form>
 	)

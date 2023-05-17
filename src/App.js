@@ -52,8 +52,6 @@ const App = () => {
         inputError={inputError}
         setInputError={setInputError}
         setErrorMessage={setErrorMessage}
-        // dictionaryApi={dictionaryApi}
-        // word={word}
       />
       <Display 
         searchedWord={searchedWord}
@@ -64,3 +62,4 @@ const App = () => {
 }
 
 export default App;
+

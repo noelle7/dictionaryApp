@@ -1,10 +1,13 @@
-// import NewWindow from '../assets/images/icon-new-window.svg';
+import sourceIcon from '../assets/images/icon-new-window.svg';
+// import { v4 as uuid } from 'uuid';
 
 
-const Meanings = ({ searchedWord }) => {
-    const renderedMeanings = searchedWord.meanings.map((meaning) => {
+const Meanings = ({ searchedWord}) => {
+    const renderedMeanings = searchedWord.meanings.map((meaning, index) => {
+        console.log(meaning);
+
         return (
-            <section className="displayMeaning" >
+            <section className="displayMeaning" key={index} >
 
                 {/* PART OF SPEECH */}
                 <div className="displayPartOfSpeech">
@@ -13,13 +16,13 @@ const Meanings = ({ searchedWord }) => {
                 </div>
 
                 {/* DEFINITIONS */}
-                <div className="displayDefinition">
+                <div className="displayDefinition" >
                     <h4>Meaning</h4>
                     <ul>
                         {
-                            meaning.definitions.map((def) => {
+                            meaning.definitions.map((def, index) => {
                                 return (
-                                    <li>
+                                    <li key={index}>
                                         <p>{def.definition}</p>
                                     </li>
                                 )
@@ -44,8 +47,11 @@ const Meanings = ({ searchedWord }) => {
 
     return (
         <div className="displayContainer">
+            
             {renderedMeanings}
 
+            {/* source */}
+            <div className="displayLineSource"></div>
             <div className="displaySource">
                 <p className="source">Source</p>
                 <a 
@@ -55,8 +61,8 @@ const Meanings = ({ searchedWord }) => {
                 >
                     {searchedWord.sourceUrls[0]}
                 </a>
+                <img src={sourceIcon} className="sourceIcon" alt="new window icon" />
             </div>
-            {/* <NewWindow /> */}
         </div>
     )
 }
