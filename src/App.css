@@ -15,6 +15,7 @@ html {
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
 body {
+  margin: 2rem 5rem;
 
 }
 
@@ -113,6 +114,8 @@ button {
 .displayPartOfSpeech {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin: 3rem 0;
 }
 
 .partOfSpeech {
@@ -123,6 +126,7 @@ button {
     background-color: #e9e9e9;
     height: 1px;
     width: 100%;
+    margin-left: 3rem;
 }
 
 .displayDefinition ul {
@@ -140,19 +144,22 @@ button {
   display: inline-block;
   width: 2em;
   margin-left: -2em;
+  font-size: 2rem;
+  position: absolute;
 }
 
 
 .displaySynonyms {
   display: flex;
   align-items: center;
+  margin-top: 3rem;
 }
 
 .synonym {
   color: #a445ed;
   margin-left: 2.2rem;
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 2.9rem;
 }
 
@@ -205,6 +212,7 @@ h1 {
   font-size: 6.4rem;
   font-weight: bolder;
   line-height: 7.7rem;
+  margin-bottom: 2rem;
 }
 
 h2 {
@@ -243,4 +251,28 @@ p {
 }
 
 
+/* MEDIA QUERIES */
 
+@media (max-width: 900px) {
+
+  body {
+    margin: 2rem;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  body {
+    margin: 2rem;
+  }
+
+  .app {
+    margin: 2rem;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+}
