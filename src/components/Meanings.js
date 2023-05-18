@@ -1,13 +1,12 @@
 import sourceIcon from '../assets/images/icon-new-window.svg';
-// import { v4 as uuid } from 'uuid';
+import { v4 } from 'uuid';
 
 
 const Meanings = ({ searchedWord}) => {
-    const renderedMeanings = searchedWord.meanings.map((meaning, index) => {
-        console.log(meaning);
+    const renderedMeanings = searchedWord.meanings.map((meaning) => {
 
         return (
-            <section className="displayMeaning" key={index} >
+            <section className="displayMeaning" key={v4()} >
 
                 {/* PART OF SPEECH */}
                 <div className="displayPartOfSpeech">
@@ -20,9 +19,9 @@ const Meanings = ({ searchedWord}) => {
                     <h4>Meaning</h4>
                     <ul>
                         {
-                            meaning.definitions.map((def, index) => {
+                            meaning.definitions.map((def) => {
                                 return (
-                                    <li key={index}>
+                                    <li key={v4()}>
                                         <p>{def.definition}</p>
                                     </li>
                                 )

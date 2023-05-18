@@ -1,11 +1,11 @@
 // font & theme
+import logo from '../assets/images/logo.svg'
+
 
 const Header = () => {
 	return (
 		<header>
-			<nav>
-                {/* <div>Here is a nav</div> */}
-            </nav>
+			<img src={logo} className="appLogo" alt="dictionary app logo" />
 		</header>
 	);
 };

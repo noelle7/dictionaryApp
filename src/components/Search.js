@@ -22,20 +22,7 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 
 		try {
 			const response = await word(userInput)
-			console.log(response);
 			
-			// const updatedResponse = response.map( (item) => {
-			// 	return {
-			// 		...item,
-			// 		meanings: {
-			// 			...item.meanings,
-			// 			id: crypto.randomUUID()
-			// 		}
-			// 	}
-			// } )
-			// console.log(updatedResponse);
-			
-			// setSearchedWord(updatedResponse[0])
 			setSearchedWord(response[0])
 			setInputError(false)
 			setErrorMessage({
@@ -56,7 +43,6 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 			  message: error.response.data.message,
 
 			})
-			console.log(error)
 		}
 	}
 
@@ -64,11 +50,6 @@ const Search = ( { setSearchedWord, inputError, setInputError, setErrorMessage }
 		<form action="" className='searchBar' onSubmit={handleSubmit}>
 			<label htmlFor="word" className="sr-only">Enter a word</label>
 			<input
-				// className={
-				// 	inputError
-				// 	?
-				// 	:
-				// }
 				type="text" 
 				placeholder='search dictionary' onChange={handleChange} 
 			/>
