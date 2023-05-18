@@ -22,7 +22,12 @@ body {
 a {
   text-decoration: none;
   color: #1f1f1f;
+}
 
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* App component */
@@ -274,5 +279,9 @@ p {
 
   h1 {
     font-size: 4rem;
+  }
+
+  .sourceIcon {
+    margin-left: 1rem;
   }
 }
