@@ -109,6 +109,21 @@ button {
   color: #757575;
 }
 
+/* Button */
+
+.button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.playIcon {
+  position: absolute;
+  top: -100px;
+  right: 144px;
+}
+
 /* Meanings component */
 
 .displayPartOfSpeech {
@@ -179,7 +194,6 @@ button {
 .displaySource a {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   font-size: 1.5rem;
 }
 
@@ -274,5 +288,18 @@ p {
 
   h1 {
     font-size: 4rem;
+  }
+
+  .playIcon {
+    right: 70px;
+  }
+}
+
+
+@media (max-width: 400px) {
+  
+  .playIcon {
+    right: 30px;
+    width: 50px;
   }
 }
